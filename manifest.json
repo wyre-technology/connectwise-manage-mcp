@@ -1,0 +1,35 @@
+{
+  "manifest_version": "0.3",
+  "name": "connectwise-manage-mcp",
+  "version": "0.0.1",
+  "display_name": "ConnectWise Manage MCP Server",
+  "description": "ConnectWise Manage (PSA) MCP server for Claude",
+  "author": { "name": "Aaron Sachs", "url": "https://github.com/asachs01" },
+  "repository": { "type": "git", "url": "https://github.com/wyre-technology/connectwise-manage-mcp" },
+  "homepage": "https://github.com/wyre-technology/connectwise-manage-mcp",
+  "license": "MIT",
+  "keywords": ["connectwise", "manage", "psa", "tickets", "msp", "it-management"],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {
+        "CW_MANAGE_COMPANY_ID": "${user_config.cw_manage_company_id}",
+        "CW_MANAGE_PUBLIC_KEY": "${user_config.cw_manage_public_key}",
+        "CW_MANAGE_PRIVATE_KEY": "${user_config.cw_manage_private_key}",
+        "CW_MANAGE_CLIENT_ID": "${user_config.cw_manage_client_id}",
+        "MCP_TRANSPORT": "stdio"
+      }
+    }
+  },
+  "tools_generated": true,
+  "user_config": {
+    "cw_manage_company_id": { "type": "string", "title": "Company ID", "description": "Your ConnectWise Manage company ID", "required": true },
+    "cw_manage_public_key": { "type": "string", "title": "Public Key", "description": "Your ConnectWise Manage public API key", "required": true, "sensitive": true },
+    "cw_manage_private_key": { "type": "string", "title": "Private Key", "description": "Your ConnectWise Manage private API key", "required": true, "sensitive": true },
+    "cw_manage_client_id": { "type": "string", "title": "Client ID", "description": "Your ConnectWise Manage client ID", "required": true }
+  },
+  "compatibility": { "platforms": ["darwin", "win32", "linux"], "runtimes": { "node": ">=18.0.0" }, "claude_desktop": ">=0.10.0" }
+}
