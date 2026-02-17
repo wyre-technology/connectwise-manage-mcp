@@ -1,0 +1,23 @@
+# 1.0.0 (2026-02-17)
+
+
+### Bug Fixes
+
+* add package-lock.json for npm ci in CI and Docker builds ([0fd9271](https://github.com/wyre-technology/connectwise-manage-mcp/commit/0fd927144f0261fd3d878d83d0c29646dd38c4ef))
+* **ci:** fix duplicate step IDs, use Node 22 for semantic-release, drop Node 18 ([9aa7f4c](https://github.com/wyre-technology/connectwise-manage-mcp/commit/9aa7f4cc0c37bab59abf3a3a33776264be870acc))
+* **ci:** remove npm cache (no package-lock.json in repo) ([d2e1c37](https://github.com/wyre-technology/connectwise-manage-mcp/commit/d2e1c3747728fbd1433f7eedb098b1c265606911))
+* **deps:** add semantic-release and plugin devDependencies ([ad815b3](https://github.com/wyre-technology/connectwise-manage-mcp/commit/ad815b31fb312ab71feaa9c0236e2ba4e20e8834))
+* escape newlines in .releaserc.json message template ([bc32d79](https://github.com/wyre-technology/connectwise-manage-mcp/commit/bc32d79115d5d1df84a785bd59c1b33ed38cb6a6))
+* pass with no tests and add semantic-release devDependencies ([b8653f0](https://github.com/wyre-technology/connectwise-manage-mcp/commit/b8653f01b01ff2fe041aa9016e2980bf16b66a0a))
+* regenerate package-lock.json with semantic-release deps ([92e5903](https://github.com/wyre-technology/connectwise-manage-mcp/commit/92e5903cbabc889467beb5090b7957d33b8b522b))
+* regenerate package-lock.json with semantic-release deps ([5c54789](https://github.com/wyre-technology/connectwise-manage-mcp/commit/5c547897e8125d8d25c105b701006fff755bc7db))
+
+
+### Features
+
+* add mcpb packaging support ([50a58ac](https://github.com/wyre-technology/connectwise-manage-mcp/commit/50a58acdaee22db656cf4910223ad1a09e985067))
+* add mcpb packaging support ([c14db0d](https://github.com/wyre-technology/connectwise-manage-mcp/commit/c14db0d92b7af5e1d9728e648e66d5900b18f0c8))
+* add mcpb packaging support ([258863b](https://github.com/wyre-technology/connectwise-manage-mcp/commit/258863b365583d065cf1dfee0cad625fb036309f))
+* add mcpb packaging support ([693b11c](https://github.com/wyre-technology/connectwise-manage-mcp/commit/693b11ccf95cdd4ab1262245728a4d525908706f))
+* add mcpb packaging support ([71026b8](https://github.com/wyre-technology/connectwise-manage-mcp/commit/71026b815135b468cc0e912c52beba51ec0659c6))
+* scaffold ConnectWise Manage MCP server with deploy infrastructure ([72b18a2](https://github.com/wyre-technology/connectwise-manage-mcp/commit/72b18a210605b5c74946d8df202ec2fae93dafd2))
