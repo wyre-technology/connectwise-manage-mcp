@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.0.0...v1.0.1) (2026-02-17)
+
+
+### Bug Fixes
+
+* **docker:** drop arm64 platform to fix QEMU build failures ([2c01732](https://github.com/wyre-technology/connectwise-manage-mcp/commit/2c01732ed3f4defc024dcddd95fba283ab92048c))
+
 # 1.0.0 (2026-02-17)
 
 
