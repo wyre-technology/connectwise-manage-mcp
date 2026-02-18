@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.0...v1.1.1) (2026-02-18)
+
+
+### Bug Fixes
+
+* **ci:** fix release workflow failures ([1f18198](https://github.com/wyre-technology/connectwise-manage-mcp/commit/1f18198616ab53a2a7adf6b4f7196071473504f4))
+
 # [1.1.0](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.0.1...v1.1.0) (2026-02-18)
 
 
