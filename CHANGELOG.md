@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.1...v1.1.2) (2026-02-18)
+
+
+### Bug Fixes
+
+* convert pack-mcpb.js to ESM imports ([73733cb](https://github.com/wyre-technology/connectwise-manage-mcp/commit/73733cb73fbb53816aab6685b86fa532573a7019))
+
 ## [1.1.1](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.0...v1.1.1) (2026-02-18)
 
 
