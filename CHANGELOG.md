@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.0.1...v1.1.0) (2026-02-18)
+
+
+### Features
+
+* add MCPB bundle to release workflow ([a1107a2](https://github.com/wyre-technology/connectwise-manage-mcp/commit/a1107a2e52b2803d06d13b044f010e067e482949))
+* add MCPB manifest for desktop installation ([05b49f5](https://github.com/wyre-technology/connectwise-manage-mcp/commit/05b49f5aed4d9cab02fa3f9954a33a9c47ebeb4a))
+* add MCPB pack script ([2abb833](https://github.com/wyre-technology/connectwise-manage-mcp/commit/2abb83319dc932eed4a5f6f44272038781a74d2b))
+
 # [1.1.0](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.0.1...v1.1.0) (2026-02-17)
 
 
