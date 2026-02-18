@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.2...v1.1.3) (2026-02-18)
+
+
+### Bug Fixes
+
+* strip npm scope from MCPB bundle filename ([dd178af](https://github.com/wyre-technology/connectwise-manage-mcp/commit/dd178af6caabd7d3c231f362426244c9722264b4))
+
 ## [1.1.2](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.1...v1.1.2) (2026-02-18)
 
 
