@@ -69,7 +69,9 @@ jobs:
           BUNDLE_NAME=$(node -p "require('./package.json').name.replace(/^@.*\//, '')")
           npm install -g @anthropic-ai/mcpb
           npm run pack:mcpb
-          gh release upload "v${{ steps.version.outputs.version }}" ${BUNDLE_NAME}.mcpb \
+          echo "Looking for bundle file..."
+          ls -la *.mcpb 2>/dev/null || true
+          gh release upload "v${{ steps.version.outputs.version }}" "${BUNDLE_NAME}.mcpb" \
             --repo ${{ github.repository }} --clobber
 
   docker:
