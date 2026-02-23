@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.3...v1.1.4) (2026-02-23)
+
+
+### Bug Fixes
+
+* quote MCPB bundle filename in release upload step and add debug listing ([50fe9ea](https://github.com/wyre-technology/connectwise-manage-mcp/commit/50fe9ea8b46b5cac308714544fc26fd39b0a3f4e))
+
 ## [1.1.3](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.2...v1.1.3) (2026-02-18)
 
 
