@@ -74,6 +74,19 @@ jobs:
           gh release upload "v${{ steps.version.outputs.version }}" "${BUNDLE_NAME}.mcpb" \
             --repo ${{ github.repository }} --clobber
 
+      - name: Discord release notification
+        if: steps.version.outputs.released == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BODY=$(gh release view "v$VERSION" --json body --jq '.body' 2>/dev/null || echo "")
+          SUMMARY=$(echo "$BODY" | sed '1,2d' | head -30 | cut -c1-1800)
+          PAYLOAD=$(jq -n             --arg title "New Release: v$VERSION"             --arg desc "**${{ github.repository }}** — [v$VERSION](https://github.com/${{ github.repository }}/releases/tag/v$VERSION)
+
+$SUMMARY"             '{embeds: [{title: $title, description: $desc, color: 5763847}]}')
+          curl -sf -H "Content-Type: application/json" -d "$PAYLOAD" "$DISCORD_WEBHOOK"
   docker:
     name: Docker
     runs-on: ubuntu-latest
