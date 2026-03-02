@@ -1,3 +1,11 @@
+## [1.1.5](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.4...v1.1.5) (2026-03-02)
+
+
+### Bug Fixes
+
+* **ci:** fix broken YAML in Discord notification step ([f8412f1](https://github.com/wyre-technology/connectwise-manage-mcp/commit/f8412f1869c97929e0c218ab84cd78714ab5dfcb))
+* **ci:** move Discord notification into release workflow ([9b439d0](https://github.com/wyre-technology/connectwise-manage-mcp/commit/9b439d01a3addb01d6a2e9c7c254fbfa91c597a3))
+
 ## [1.1.4](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.3...v1.1.4) (2026-02-23)
 
 
