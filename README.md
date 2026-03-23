@@ -1,8 +1,13 @@
 # ConnectWise Manage MCP Server
 
-A Model Context Protocol (MCP) server for ConnectWise Manage (PSA), providing ticket management, company operations, contact management, project tracking, time entry functionality, and more.
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 
-Supports **cloud-hosted** and **self-hosted** ConnectWise Manage instances.
+**Let your AI assistant work directly with ConnectWise Manage.** Search tickets, log time, look up companies and contacts, manage projects — through natural conversation instead of clicking through the CWM interface.
+
+This is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that gives Claude (or any MCP-compatible AI) 27 tools covering the daily operations ConnectWise Manage shops depend on. Works with both **cloud-hosted and self-hosted** CWM instances — just point it at your server.
+
+> **Part of the [MSP Claude Plugins](https://github.com/wyre-technology/msp-claude-plugins) ecosystem** — a growing suite of AI integrations for the MSP stack including [Autotask](https://github.com/wyre-technology/autotask-mcp), [Datto RMM](https://github.com/wyre-technology/datto-rmm-mcp), [IT Glue](https://github.com/wyre-technology/itglue-mcp), [HaloPSA](https://github.com/wyre-technology/halopsa-mcp), [NinjaOne](https://github.com/wyre-technology/ninjaone-mcp), [Huntress](https://github.com/wyre-technology/huntress-mcp), and more. Built by MSPs, for MSPs.
 
 ## One-Click Deployment
 
@@ -176,6 +181,18 @@ npm run typecheck
 npm test
 ```
 
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
 ## License
 
 Apache-2.0
+
+---
+
+Built by [WYRE Technology](https://github.com/wyre-technology) — part of the [MSP Claude Plugins](https://github.com/wyre-technology/msp-claude-plugins) ecosystem
