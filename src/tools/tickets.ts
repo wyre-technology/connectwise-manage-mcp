@@ -97,14 +97,14 @@ export function registerTicketTools(server: McpServer, client: CwManageClient) {
 
   server.tool(
     "cw_get_ticket_notes",
-    "Get all notes/discussions on a service ticket.",
+    "Get all notes/discussions on a service ticket, including notes from any child tickets.",
     {
       id: z.number().describe("Ticket ID"),
       page: z.number().optional().describe("Page number (default: 1)"),
       pageSize: z.number().optional().describe("Results per page (default: 25, max: 1000)"),
     },
     async ({ id, page, pageSize }) => {
-      const result = await client.get(`/service/tickets/${id}/notes`, {
+      const result = await client.get(`/service/tickets/${id}/allNotes`, {
         page: page ?? 1,
         pageSize: pageSize ?? 25,
       });
