@@ -163,8 +163,18 @@ export async function handleToken(
   const body = await readBody(req);
   const params = new URLSearchParams(body);
 
-  // Override client_id; forward everything else
+  // Override client_id; drop resource (Azure AD v2 uses scope, not resource —
+  // sending both causes AADSTS9010010 when they don't match)
   params.set("client_id", config.clientId);
+  params.delete("resource");
+
+  // If scope is present (e.g. sent by Claude.ai), replace it with our API scope
+  if (params.has("scope")) {
+    params.set(
+      "scope",
+      `api://${config.clientId}/access_as_user openid profile email offline_access`,
+    );
+  }
 
   const azureTokenUrl = `https://login.microsoftonline.com/${config.tenantId}/oauth2/v2.0/token`;
 
