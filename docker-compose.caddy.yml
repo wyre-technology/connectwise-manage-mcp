@@ -1,0 +1,30 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    environment:
+      - MCP_HOSTNAME=${MCP_HOSTNAME}
+    depends_on:
+      - connectwise-manage-mcp
+    restart: unless-stopped
+
+  connectwise-manage-mcp:
+    ports: [] # Caddy proxies internally — don't expose port directly
+    environment:
+      - MCP_OAUTH_ENABLED=${MCP_OAUTH_ENABLED:-true}
+      - MCP_SERVER_URL=${MCP_SERVER_URL}
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+      - AZURE_AUDIENCE=${AZURE_AUDIENCE}
+      - AZURE_REQUIRED_ROLE=${AZURE_REQUIRED_ROLE:-CWM.Access}
+      - MCP_BEARER_TOKEN=${MCP_BEARER_TOKEN}
+
+volumes:
+  caddy-data:
+  caddy-config:

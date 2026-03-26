@@ -1,0 +1,10 @@
+{$MCP_HOSTNAME} {
+    reverse_proxy connectwise-manage-mcp:8080
+
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+        -Server
+    }
+}

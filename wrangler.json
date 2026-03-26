@@ -2,5 +2,13 @@
   "name": "connectwise-manage-mcp",
   "main": "dist/worker.js",
   "compatibility_date": "2026-02-01",
-  "node_compat": true
+  "node_compat": true,
+  "vars": {
+    "MCP_OAUTH_ENABLED": "false",
+    "AZURE_TENANT_ID": "",
+    "AZURE_CLIENT_ID": "",
+    "AZURE_AUDIENCE": "",
+    "AZURE_REQUIRED_ROLE": "CWM.Access",
+    "MCP_SERVER_URL": ""
+  }
 }
