@@ -94,4 +94,44 @@ export function registerTicketTools(server: McpServer, client: CwManageClient) {
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     },
   );
+
+  server.tool(
+    "cw_get_ticket_notes",
+    "Get all notes/discussions on a service ticket.",
+    {
+      id: z.number().describe("Ticket ID"),
+      page: z.number().optional().describe("Page number (default: 1)"),
+      pageSize: z.number().optional().describe("Results per page (default: 25, max: 1000)"),
+    },
+    async ({ id, page, pageSize }) => {
+      const result = await client.get(`/service/tickets/${id}/notes`, {
+        page: page ?? 1,
+        pageSize: pageSize ?? 25,
+      });
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    },
+  );
+
+  server.tool(
+    "cw_add_ticket_note",
+    "Add a note to a service ticket. Use detailDescriptionFlag for a description note, internalAnalysisFlag for an internal-only note, or resolutionFlag for a resolution note. Defaults to a plain discussion note visible to the customer.",
+    {
+      id: z.number().describe("Ticket ID"),
+      text: z.string().describe("Note text content"),
+      detailDescriptionFlag: z.boolean().optional().describe("Add as detail description (default: false)"),
+      internalAnalysisFlag: z.boolean().optional().describe("Mark as internal analysis only (default: false)"),
+      resolutionFlag: z.boolean().optional().describe("Mark as resolution note (default: false)"),
+      customerUpdatedFlag: z.boolean().optional().describe("Flag that the customer was updated (default: false)"),
+    },
+    async ({ id, text, detailDescriptionFlag, internalAnalysisFlag, resolutionFlag, customerUpdatedFlag }) => {
+      const body: Record<string, unknown> = { text };
+      if (detailDescriptionFlag !== undefined) body.detailDescriptionFlag = detailDescriptionFlag;
+      if (internalAnalysisFlag !== undefined) body.internalAnalysisFlag = internalAnalysisFlag;
+      if (resolutionFlag !== undefined) body.resolutionFlag = resolutionFlag;
+      if (customerUpdatedFlag !== undefined) body.customerUpdatedFlag = customerUpdatedFlag;
+
+      const result = await client.post(`/service/tickets/${id}/notes`, body);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    },
+  );
 }
