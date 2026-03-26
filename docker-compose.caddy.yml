@@ -1,6 +1,8 @@
 services:
   caddy:
     image: caddy:2-alpine
+    container_name: connectwise-manage-mcp-caddy
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
@@ -12,18 +14,39 @@ services:
       - MCP_HOSTNAME=${MCP_HOSTNAME}
     depends_on:
       - connectwise-manage-mcp
-    restart: unless-stopped
 
   connectwise-manage-mcp:
-    ports: [] # Caddy proxies internally — don't expose port directly
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: ghcr.io/wyre-technology/connectwise-manage-mcp:latest
+    container_name: connectwise-manage-mcp-server
+    restart: unless-stopped
+    env_file:
+      - .env
     environment:
-      - MCP_OAUTH_ENABLED=${MCP_OAUTH_ENABLED:-true}
+      - CW_MANAGE_COMPANY_ID=${CW_MANAGE_COMPANY_ID}
+      - CW_MANAGE_PUBLIC_KEY=${CW_MANAGE_PUBLIC_KEY}
+      - CW_MANAGE_PRIVATE_KEY=${CW_MANAGE_PRIVATE_KEY}
+      - CW_MANAGE_CLIENT_ID=${CW_MANAGE_CLIENT_ID}
+      - MCP_TRANSPORT=http
+      - AUTH_MODE=env
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - NODE_ENV=production
+      - MCP_OAUTH_ENABLED=${MCP_OAUTH_ENABLED:-false}
       - MCP_SERVER_URL=${MCP_SERVER_URL}
       - AZURE_TENANT_ID=${AZURE_TENANT_ID}
       - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
       - AZURE_AUDIENCE=${AZURE_AUDIENCE}
       - AZURE_REQUIRED_ROLE=${AZURE_REQUIRED_ROLE:-CWM.Access}
       - MCP_BEARER_TOKEN=${MCP_BEARER_TOKEN}
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
 volumes:
   caddy-data:
