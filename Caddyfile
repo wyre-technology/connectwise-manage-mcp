@@ -1,4 +1,9 @@
 {$MCP_HOSTNAME} {
+    log {
+        output stdout
+        format json
+    }
+
     reverse_proxy connectwise-manage-mcp:8080
 
     header {

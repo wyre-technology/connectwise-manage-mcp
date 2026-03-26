@@ -176,6 +176,10 @@ export async function handleToken(
     });
 
     const azureBody = await azureRes.text();
+    console.error(`[token] Azure response status: ${azureRes.status}`);
+    if (azureRes.status !== 200) {
+      console.error(`[token] Azure error body: ${azureBody}`);
+    }
 
     res.writeHead(azureRes.status, {
       "Content-Type": "application/json",

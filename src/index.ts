@@ -172,6 +172,8 @@ async function startHttpTransport(): Promise<void> {
       `http://${req.headers.host || "localhost"}`,
     );
 
+    console.error(`[req] ${req.method} ${url.pathname}`);
+
     // ------------------------------------------------------------------
     // OAuth discovery + proxy endpoints (always available when OAuth on)
     // ------------------------------------------------------------------
