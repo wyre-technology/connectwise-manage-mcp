@@ -36,15 +36,15 @@ export function registerProjectTools(server: McpServer, client: CwManageClient) 
   );
 
   server.tool(
-    "cw_get_project_notes",
-    "Get all notes on a project.",
+    "cw_get_project_ticket_notes",
+    "Get all notes on a project ticket, including notes from any child tickets.",
     {
-      id: z.number().describe("Project ID"),
+      id: z.number().describe("Project ticket ID"),
       page: z.number().optional().describe("Page number (default: 1)"),
       pageSize: z.number().optional().describe("Results per page (default: 25, max: 1000)"),
     },
     async ({ id, page, pageSize }) => {
-      const result = await client.get(`/project/projects/${id}/notes`, {
+      const result = await client.get(`/project/tickets/${id}/allNotes`, {
         page: page ?? 1,
         pageSize: pageSize ?? 25,
       });
@@ -53,18 +53,22 @@ export function registerProjectTools(server: McpServer, client: CwManageClient) 
   );
 
   server.tool(
-    "cw_add_project_note",
-    "Add a note to a project.",
+    "cw_add_project_ticket_note",
+    "Add a note to a project ticket. Use internalAnalysisFlag for internal-only notes or resolutionFlag for resolution notes. Defaults to a plain discussion note.",
     {
-      id: z.number().describe("Project ID"),
+      id: z.number().describe("Project ticket ID"),
       text: z.string().describe("Note text content"),
-      flagged: z.boolean().optional().describe("Flag this note for attention (default: false)"),
+      detailDescriptionFlag: z.boolean().optional().describe("Add as detail description (default: false)"),
+      internalAnalysisFlag: z.boolean().optional().describe("Mark as internal analysis only (default: false)"),
+      resolutionFlag: z.boolean().optional().describe("Mark as resolution note (default: false)"),
     },
-    async ({ id, text, flagged }) => {
+    async ({ id, text, detailDescriptionFlag, internalAnalysisFlag, resolutionFlag }) => {
       const body: Record<string, unknown> = { text };
-      if (flagged !== undefined) body.flagged = flagged;
+      if (detailDescriptionFlag !== undefined) body.detailDescriptionFlag = detailDescriptionFlag;
+      if (internalAnalysisFlag !== undefined) body.internalAnalysisFlag = internalAnalysisFlag;
+      if (resolutionFlag !== undefined) body.resolutionFlag = resolutionFlag;
 
-      const result = await client.post(`/project/projects/${id}/notes`, body);
+      const result = await client.post(`/project/tickets/${id}/notes`, body);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     },
   );
