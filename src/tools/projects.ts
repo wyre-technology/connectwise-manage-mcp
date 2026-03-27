@@ -36,6 +36,40 @@ export function registerProjectTools(server: McpServer, client: CwManageClient) 
   );
 
   server.tool(
+    "cw_get_project_notes",
+    "Get all notes on a project.",
+    {
+      id: z.number().describe("Project ID"),
+      page: z.number().optional().describe("Page number (default: 1)"),
+      pageSize: z.number().optional().describe("Results per page (default: 25, max: 1000)"),
+    },
+    async ({ id, page, pageSize }) => {
+      const result = await client.get(`/project/projects/${id}/notes`, {
+        page: page ?? 1,
+        pageSize: pageSize ?? 25,
+      });
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    },
+  );
+
+  server.tool(
+    "cw_add_project_note",
+    "Add a note to a project.",
+    {
+      id: z.number().describe("Project ID"),
+      text: z.string().describe("Note text content"),
+      flagged: z.boolean().optional().describe("Flag this note for attention (default: false)"),
+    },
+    async ({ id, text, flagged }) => {
+      const body: Record<string, unknown> = { text };
+      if (flagged !== undefined) body.flagged = flagged;
+
+      const result = await client.post(`/project/projects/${id}/notes`, body);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    },
+  );
+
+  server.tool(
     "cw_create_project",
     "Create a new project.",
     {
