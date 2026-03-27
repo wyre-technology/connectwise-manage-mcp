@@ -5,7 +5,7 @@
 
 **Let your AI assistant work directly with ConnectWise Manage.** Search tickets, log time, look up companies and contacts, manage projects — through natural conversation instead of clicking through the CWM interface.
 
-This is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that gives Claude (or any MCP-compatible AI) 27 tools covering the daily operations ConnectWise Manage shops depend on. Works with both **cloud-hosted and self-hosted** CWM instances — just point it at your server.
+This is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that gives Claude (or any MCP-compatible AI) 34 tools covering the daily operations ConnectWise Manage shops depend on. Works with both **cloud-hosted and self-hosted** CWM instances — just point it at your server.
 
 > **Part of the [MSP Claude Plugins](https://github.com/wyre-technology/msp-claude-plugins) ecosystem** — a growing suite of AI integrations for the MSP stack including [Autotask](https://github.com/wyre-technology/autotask-mcp), [Datto RMM](https://github.com/wyre-technology/datto-rmm-mcp), [IT Glue](https://github.com/wyre-technology/itglue-mcp), [HaloPSA](https://github.com/wyre-technology/halopsa-mcp), [NinjaOne](https://github.com/wyre-technology/ninjaone-mcp), [Huntress](https://github.com/wyre-technology/huntress-mcp), and more. Built by MSPs, for MSPs.
 
@@ -14,6 +14,8 @@ This is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) serve
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/wyre-technology/connectwise-manage-mcp/tree/main)
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/wyre-technology/connectwise-manage-mcp)
+
+For deploying to **Azure Container Apps** with Entra ID OAuth 2.1, see [AZURE_ACA_DEPLOYMENT.md](AZURE_ACA_DEPLOYMENT.md).
 
 ## Configuration
 
@@ -59,6 +61,8 @@ If your self-hosted instance uses a self-signed certificate, also set `CW_MANAGE
 - `cw_get_ticket` — Get a ticket by ID
 - `cw_create_ticket` — Create a new service ticket
 - `cw_update_ticket` — Update a ticket (JSON Patch)
+- `cw_get_ticket_notes` — Get all notes on a ticket (including child ticket notes)
+- `cw_add_ticket_note` — Add a note to a ticket (discussion, internal, or resolution)
 
 ### Companies
 - `cw_search_companies` — Search companies
@@ -75,6 +79,10 @@ If your self-hosted instance uses a self-signed certificate, also set `CW_MANAGE
 - `cw_search_projects` — Search projects
 - `cw_get_project` — Get a project by ID
 - `cw_create_project` — Create a new project
+- `cw_search_project_tickets` — Search tickets under a project
+- `cw_get_project_ticket` — Get a specific project ticket by ID
+- `cw_get_project_ticket_notes` — Get all notes on a project ticket (including child ticket notes)
+- `cw_add_project_ticket_note` — Add a note to a project ticket (discussion, internal, or resolution)
 
 ### Time Entries
 - `cw_search_time_entries` — Search time entries
