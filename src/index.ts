@@ -37,6 +37,7 @@ import {
   ServerResponse,
   Server as HttpServer,
 } from "node:http";
+import { timingSafeEqual } from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -172,8 +173,6 @@ async function startHttpTransport(): Promise<void> {
       `http://${req.headers.host || "localhost"}`,
     );
 
-    console.error(`[req] ${req.method} ${url.pathname}`);
-
     // ------------------------------------------------------------------
     // OAuth discovery + proxy endpoints (always available when OAuth on)
     // ------------------------------------------------------------------
@@ -277,7 +276,12 @@ async function startHttpTransport(): Promise<void> {
           try {
             let identity;
             // Static bearer token check (Claude Code CLI / Claude Desktop)
-            if (entraConfig.bearerToken && token === entraConfig.bearerToken) {
+            // Use timing-safe comparison to prevent token length oracle attacks
+            const staticTokenMatch =
+              entraConfig.bearerToken !== undefined &&
+              token.length === entraConfig.bearerToken.length &&
+              timingSafeEqual(Buffer.from(token), Buffer.from(entraConfig.bearerToken));
+            if (staticTokenMatch) {
               identity = {
                 upn: "cli-user",
                 roles: [entraConfig.requiredRole],

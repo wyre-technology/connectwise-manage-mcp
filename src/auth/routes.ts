@@ -14,10 +14,22 @@ function sendJson(res: ServerResponse, status: number, body: unknown): void {
   res.end(json);
 }
 
+const MAX_BODY_BYTES = 65_536; // 64 KB — sufficient for any OAuth request body
+
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
-    req.on("data", (chunk: Buffer) => chunks.push(chunk));
+    let totalBytes = 0;
+
+    req.on("data", (chunk: Buffer) => {
+      totalBytes += chunk.length;
+      if (totalBytes > MAX_BODY_BYTES) {
+        req.destroy();
+        reject(new Error("Request body too large"));
+        return;
+      }
+      chunks.push(chunk);
+    });
     req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
     req.on("error", reject);
   });
@@ -186,9 +198,8 @@ export async function handleToken(
     });
 
     const azureBody = await azureRes.text();
-    console.error(`[token] Azure response status: ${azureRes.status}`);
     if (azureRes.status !== 200) {
-      console.error(`[token] Azure error body: ${azureBody}`);
+      console.error(`[token] Azure rejected token exchange — status: ${azureRes.status}, body: ${azureBody}`);
     }
 
     res.writeHead(azureRes.status, {
