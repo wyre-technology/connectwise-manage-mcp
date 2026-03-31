@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.2.0...v1.2.1) (2026-03-31)
+
+
+### Bug Fixes
+
+* **deploy:** replace node_compat with nodejs_compat for Wrangler v4 ([659fd01](https://github.com/wyre-technology/connectwise-manage-mcp/commit/659fd01b694baa081319430ca4dc810bfda5dca0))
+
 ## [1.1.5](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.1.4...v1.1.5) (2026-03-02)
 
 
