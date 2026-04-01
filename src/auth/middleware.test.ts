@@ -30,7 +30,7 @@ const config: EntraConfig = {
   serverUrl: "https://mcp.example.com",
 };
 
-const mockJwks = vi.fn() as ReturnType<typeof import("jose").createRemoteJWKSet>;
+const mockJwks = vi.fn() as unknown as ReturnType<typeof import("jose").createRemoteJWKSet>;
 
 // ---------------------------------------------------------------------------
 // validateToken
@@ -57,7 +57,8 @@ describe("validateToken", () => {
         sub: "test-sub",
       },
       protectedHeader: { alg: "RS256" },
-    });
+      key: {} as any,
+    } as any);
 
     const identity = await validateToken("valid-token", config, mockJwks);
 
@@ -82,7 +83,8 @@ describe("validateToken", () => {
         sub: "test-sub",
       },
       protectedHeader: { alg: "RS256" },
-    });
+      key: {} as any,
+    } as any);
 
     await expect(validateToken("valid-token", config, mockJwks)).rejects.toMatchObject({
       statusCode: 401,
@@ -105,7 +107,8 @@ describe("validateToken", () => {
         sub: "test-sub",
       },
       protectedHeader: { alg: "RS256" },
-    });
+      key: {} as any,
+    } as any);
 
     const error = await validateToken("valid-token", config, mockJwks).catch((e) => e);
     expect(error).toBeInstanceOf(AuthError);
@@ -136,7 +139,8 @@ describe("validateToken", () => {
         sub: "sub",
       },
       protectedHeader: { alg: "RS256" },
-    });
+      key: {} as any,
+    } as any);
 
     const error = await validateToken("bad-role-token", config, mockJwks).catch((e) => e);
     expect(error).toBeInstanceOf(AuthError);
