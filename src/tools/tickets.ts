@@ -104,11 +104,24 @@ export function registerTicketTools(server: McpServer, client: CwManageClient) {
       pageSize: z.number().optional().describe("Results per page (default: 25, max: 1000)"),
     },
     async ({ id, page, pageSize }) => {
-      const result = await client.get(`/service/tickets/${id}/allNotes`, {
-        page: page ?? 1,
-        pageSize: pageSize ?? 25,
-      });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      try {
+        const result = await client.get(`/service/tickets/${id}/allNotes`, {
+          page: page ?? 1,
+          pageSize: pageSize ?? 25,
+        });
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        if (msg.includes("404") || msg.includes("405")) {
+          // allNotes not supported on this CWM version — fall back to /notes
+          const result = await client.get(`/service/tickets/${id}/notes`, {
+            page: page ?? 1,
+            pageSize: pageSize ?? 25,
+          });
+          return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+        }
+        throw err;
+      }
     },
   );
 

@@ -200,11 +200,22 @@ export async function handleToken(
     const azureBody = await azureRes.text();
     if (azureRes.status !== 200) {
       console.error(`[token] Azure rejected token exchange — status: ${azureRes.status}, body: ${azureBody}`);
+      let sanitized: { error: string; error_description?: string };
+      try {
+        const parsed = JSON.parse(azureBody) as { error?: string; error_description?: string };
+        sanitized = {
+          error: parsed.error ?? "invalid_request",
+          error_description: parsed.error_description,
+        };
+      } catch {
+        sanitized = { error: "invalid_request" };
+      }
+      res.writeHead(azureRes.status, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(sanitized));
+      return;
     }
 
-    res.writeHead(azureRes.status, {
-      "Content-Type": "application/json",
-    });
+    res.writeHead(200, { "Content-Type": "application/json" });
     res.end(azureBody);
   } catch (err) {
     console.error("[auth] Token proxy error:", err);

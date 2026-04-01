@@ -37,7 +37,7 @@ import {
   ServerResponse,
   Server as HttpServer,
 } from "node:http";
-import { timingSafeEqual } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -279,8 +279,10 @@ async function startHttpTransport(): Promise<void> {
             // Use timing-safe comparison to prevent token length oracle attacks
             const staticTokenMatch =
               entraConfig.bearerToken !== undefined &&
-              token.length === entraConfig.bearerToken.length &&
-              timingSafeEqual(Buffer.from(token), Buffer.from(entraConfig.bearerToken));
+              timingSafeEqual(
+                createHash("sha256").update(token).digest(),
+                createHash("sha256").update(entraConfig.bearerToken).digest(),
+              );
             if (staticTokenMatch) {
               identity = {
                 upn: "cli-user",
