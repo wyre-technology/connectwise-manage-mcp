@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.2.1...v1.3.0) (2026-04-01)
+
+
+### Bug Fixes
+
+* resolve TypeScript errors in middleware tests for jose v6 ([f2fbf77](https://github.com/wyre-technology/connectwise-manage-mcp/commit/f2fbf77c29de332ed5d803f0d88b301a810c7624))
+
+
+### Features
+
+* add Entra ID OAuth 2.1 authentication layer ([ee9563d](https://github.com/wyre-technology/connectwise-manage-mcp/commit/ee9563d914a32ccb3304dfa2eb8d4d18eb8d8b8f))
+* add ticket and project ticket notes tools ([9573d08](https://github.com/wyre-technology/connectwise-manage-mcp/commit/9573d087009a62fb51bc9616eaf690fa92e10026))
+
 ## [1.2.1](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.2.0...v1.2.1) (2026-03-31)
 
 
