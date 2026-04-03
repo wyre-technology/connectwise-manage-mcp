@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.3.0...v1.4.0) (2026-04-03)
+
+
+### Features
+
+* add finance agreements and sales opportunities tools ([886083f](https://github.com/wyre-technology/connectwise-manage-mcp/commit/886083f808e7034756703be04cf810e549e81894))
+
 # [1.3.0](https://github.com/wyre-technology/connectwise-manage-mcp/compare/v1.2.1...v1.3.0) (2026-04-01)
 
 
