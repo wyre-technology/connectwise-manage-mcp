@@ -129,3 +129,31 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to Azure Container Apps
+    runs-on: ubuntu-latest
+    needs: [docker]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          SHORT_SHA="${GITHUB_SHA::7}"
+          IMAGE="ghcr.io/${{ github.repository }}:latest"
+          echo "Deploying $IMAGE to gwp-connectwise-manage (revision tag sha-${SHORT_SHA}-${GITHUB_RUN_ID})"
+          az containerapp update \
+            --name gwp-connectwise-manage \
+            --resource-group mcp-gateway-prod \
+            --image "$IMAGE" \
+            --set-env-vars "IMAGE_VERSION=sha-${SHORT_SHA}-${GITHUB_RUN_ID}"
