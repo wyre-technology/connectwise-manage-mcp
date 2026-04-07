@@ -75,7 +75,7 @@ jobs:
             --repo ${{ github.repository }} --clobber
 
       - name: Discord release notification
-        if: steps.version.outputs.released == 'true'
+        if: false  # disabled - too noisy, re-enable later
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
