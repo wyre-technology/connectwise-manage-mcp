@@ -61,6 +61,7 @@ import { registerMemberTools } from "./tools/members.js";
 import { registerConfigurationTools } from "./tools/configurations.js";
 import { registerServiceTools } from "./tools/service.js";
 import { registerActivityTools } from "./tools/activities.js";
+import { registerCatalogTools } from "./tools/catalog.js";
 import { registerHealthTools } from "./tools/health.js";
 import { registerAgreementTools } from "./tools/agreements.js";
 import { registerOpportunityTools } from "./tools/opportunities.js";
@@ -123,6 +124,7 @@ function createMcpServer(): McpServer {
   registerConfigurationTools(server, client);
   registerServiceTools(server, client);
   registerActivityTools(server, client);
+  registerCatalogTools(server, client);
   registerHealthTools(server, client);
   registerAgreementTools(server, client);
   registerOpportunityTools(server, client);
