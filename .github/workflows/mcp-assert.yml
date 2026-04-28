@@ -1,0 +1,14 @@
+name: mcp-assert
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  assert:
+    uses: wyre-technology/.github/.github/workflows/mcp-assert.yml@main
+    with:
+      entry: dist/index.js
+      canary-tool: cw_search_companies
